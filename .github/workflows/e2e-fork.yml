@@ -31,9 +31,6 @@ jobs:
           if echo '${{ steps.set-matrix.outputs.matrix }}' | grep -q -E "exit status"; then
             echo 'Substring found!'
           fi
-          if [[ ${{ steps.set-matrix.outputs.matrix }} = *'exit status'* ]]; then
-            echo 'Substring found!'
-          fi
 
   # dynamically build a matrix of test/test suite pairs to run
   build-test-matrix-wasm:
