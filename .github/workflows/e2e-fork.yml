@@ -24,7 +24,7 @@ jobs:
       - id: set-matrix
         run: |
           matrix=$(go run cmd/build_test_matrix/main.go)
-          echo "$matrix" >> $GITHUB_OUTPUT
+          echo $matrix >> $GITHUB_OUTPUT
         env:
           TEST_EXCLUSIONS: 'TestUpgradeTestSuite,TestGrandpaTestSuite,TestIBCWasmUpgradeTestSuite'  
 
