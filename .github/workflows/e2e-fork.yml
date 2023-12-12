@@ -28,7 +28,7 @@ jobs:
           TEST_EXCLUSIONS: 'TestUpgradeTestSuite,TestGrandpaTestSuite,TestIBCWasmUpgradeTestSuite'  
       - id: check-status
         run: 
-          if echo '${{ steps.set-matrix.outputs.matrix }}' | grep -q -E "exit status"; then
+          if [echo '${{ steps.set-matrix.outputs.matrix }}' | grep -q -E "exit status";] then
             echo 'Substring found!'
           fi
 
