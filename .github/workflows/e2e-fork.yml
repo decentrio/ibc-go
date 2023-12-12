@@ -28,7 +28,9 @@ jobs:
           TEST_EXCLUSIONS: 'TestUpgradeTestSuite,TestGrandpaTestSuite,TestIBCWasmUpgradeTestSuite'  
       - id: check-status
         run: 
-          if [echo ${{ steps.set-matrix.outputs.matrix }} | grep -q -E "exit status";] then
+          output = ${{ steps.set-matrix.outputs.matrix }}
+          echo "$output" | tr -d '"'
+          if [echo "$output" | grep -q -E "exit status";] then
           fi
 
   # dynamically build a matrix of test/test suite pairs to run
