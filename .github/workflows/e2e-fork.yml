@@ -30,6 +30,7 @@ jobs:
         run: 
           if [echo '${{ steps.set-matrix.outputs.matrix }}' | grep -q -E "exit status";] then
             echo 'Substring found!'
+            pwd
           fi
 
   # dynamically build a matrix of test/test suite pairs to run
