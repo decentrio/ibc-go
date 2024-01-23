@@ -6,7 +6,6 @@ on:
 jobs:
   # dynamically build a matrix of test/test suite pairs to run
   build-test-matrix:
-    if: ${{ github.event.pull_request.head.repo.fork || github.actor == 'dependabot[bot]' || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
@@ -25,7 +24,6 @@ jobs:
 
   # dynamically build a matrix of test/test suite pairs to run
   build-test-matrix-wasm:
-    if: ${{ github.event.pull_request.head.repo.fork || github.actor == 'dependabot[bot]' || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
@@ -49,7 +47,6 @@ jobs:
       CHAIN_IMAGE: ibc-go-simd
       RELAYER_ID: "hermes" # by default use hermes for fork e2es.
       FORK: "true"
-    if: ${{ github.event.pull_request.head.repo.fork || github.actor == 'dependabot[bot]' || github.event_name == 'workflow_dispatch' }}
     needs:
       - build-test-matrix
     runs-on: ubuntu-latest
@@ -79,7 +76,6 @@ jobs:
       CHAIN_IMAGE: ibc-go-wasm-simd
       RELAYER_ID: "hyperspace" # by default use hyperspace relayer for fork wasm tests.
       FORK: "true"
-    if: ${{ github.event.pull_request.head.repo.fork || github.actor == 'dependabot[bot]' || github.event_name == 'workflow_dispatch' }}
     needs: build-test-matrix-wasm
     runs-on: ubuntu-latest
     strategy:
