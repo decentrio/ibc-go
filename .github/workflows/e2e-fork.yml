@@ -1,13 +1,7 @@
 name: Tests / E2E Fork
 on:
   workflow_dispatch:
-  pull_request:
-    branches:
-      - main
-    paths-ignore:
-      - 'docs/**'
-      - '**.md'
-      - 'LICENSE'
+  push:
 
 jobs:
   # dynamically build a matrix of test/test suite pairs to run
