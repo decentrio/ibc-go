@@ -245,9 +245,9 @@ func (s *ChannelTestSuite) TestChannelUpgrade_WithFeeMiddleware_FailsWithTimeout
 	t := s.T()
 	ctx := context.TODO()
 
-	relayer, channelA := s.SetupChainsRelayerAndChannel(ctx, s.TransferChannelOptions())
-	channelB := channelA.Counterparty
 	chainA, chainB := s.GetChains()
+	relayer, channelA := s.SetupRelayer(ctx, s.TransferChannelOptions(), chainA, chainB)
+	channelB := channelA.Counterparty
 
 	chainAWallet := s.CreateUserOnChainA(ctx, testvalues.StartingTokenAmount)
 	chainBWallet := s.CreateUserOnChainB(ctx, testvalues.StartingTokenAmount)

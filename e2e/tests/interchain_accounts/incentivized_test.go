@@ -92,9 +92,8 @@ func (s *IncentivizedInterchainAccountsTestSuite) TestMsgSendTx_SuccessfulBankSe
 		s.Require().NotZero(len(interchainAcc))
 
 		channels, err := relayer.GetChannels(ctx, s.GetRelayerExecReporter(), chainA.Config().ChainID)
-		chanNumber++
 		s.Require().NoError(err)
-		s.Require().Equal(len(channels), chanNumber)
+		s.Require().Equal(len(channels), 2)
 
 		// interchain accounts channel at index: 0
 		channelOutput = channels[0]
@@ -268,9 +267,8 @@ func (s *IncentivizedInterchainAccountsTestSuite) TestMsgSendTx_FailedBankSend_I
 		s.Require().NotZero(len(interchainAcc))
 
 		channels, err := relayer.GetChannels(ctx, s.GetRelayerExecReporter(), chainA.Config().ChainID)
-		chanNumber++
 		s.Require().NoError(err)
-		s.Require().Equal(len(channels), chanNumber)
+		s.Require().Equal(len(channels), 2)
 
 		// interchain accounts channel at index: 0
 		channelOutput = channels[0]
