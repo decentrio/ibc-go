@@ -41,9 +41,11 @@ type InterchainAccountsTestSuite struct {
 	testsuite.E2ETestSuite
 }
 
-func (s *InterchainAccountsTestSuite) SetupTest() {
+func (s *InterchainAccountsTestSuite) SetupSuite() {
+	ctx := context.TODO()
 	chainA, chainB := s.GetChains()
 	s.SetChainsIntoSuite(chainA, chainB)
+	_, _ = s.SetupRelayer(ctx, nil, chainA, chainB)
 }
 
 // RegisterInterchainAccount will attempt to register an interchain account on the counterparty chain.
@@ -62,6 +64,7 @@ func (s *InterchainAccountsTestSuite) TestMsgSendTx_SuccessfulTransfer_Unordered
 
 func (s *InterchainAccountsTestSuite) testMsgSendTxSuccessfulTransfer(order channeltypes.Order) {
 	t := s.T()
+	t.Parallel()
 	ctx := context.TODO()
 
 	chainA, chainB := s.GetChains()

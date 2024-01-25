@@ -35,13 +35,16 @@ type IncentivizedInterchainAccountsTestSuite struct {
 	testsuite.E2ETestSuite
 }
 
-func (s *IncentivizedInterchainAccountsTestSuite) SetupTest() {
+func (s *IncentivizedInterchainAccountsTestSuite) SetupSuite() {
+	ctx := context.TODO()
 	chainA, chainB := s.GetChains()
 	s.SetChainsIntoSuite(chainA, chainB)
+	_, _ = s.SetupRelayer(ctx, nil, chainA, chainB)
 }
 
 func (s *IncentivizedInterchainAccountsTestSuite) TestMsgSendTx_SuccessfulBankSend_Incentivized() {
 	t := s.T()
+	t.Parallel()
 	ctx := context.TODO()
 
 	chainA, chainB := s.GetChains()
@@ -217,6 +220,7 @@ func (s *IncentivizedInterchainAccountsTestSuite) TestMsgSendTx_SuccessfulBankSe
 
 func (s *IncentivizedInterchainAccountsTestSuite) TestMsgSendTx_FailedBankSend_Incentivized() {
 	t := s.T()
+	t.Parallel()
 	ctx := context.TODO()
 
 	chainA, chainB := s.GetChains()

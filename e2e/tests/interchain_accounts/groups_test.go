@@ -58,20 +58,20 @@ const (
 	InitialProposalID = 1
 )
 
-func TestGroupsInterchainAccountsTestSuite(t *testing.T) {
-	testifysuite.Run(t, new(GroupsInterchainAccountsTestSuite))
+func TestInterchainAccountsGroupsTestSuite(t *testing.T) {
+	testifysuite.Run(t, new(InterchainAccountsGroupsTestSuite))
 }
 
-type GroupsInterchainAccountsTestSuite struct {
+type InterchainAccountsGroupsTestSuite struct {
 	testsuite.E2ETestSuite
 }
 
-func (s *GroupsInterchainAccountsTestSuite) SetupTest() {
+func (s *InterchainAccountsGroupsTestSuite) SetupSuite() {
 	chainA, chainB := s.GetChains()
 	s.SetChainsIntoSuite(chainA, chainB)
 }
 
-func (s *InterchainAccountsTestSuite) QueryGroupPolicyAddress(ctx context.Context, chain ibc.Chain) string {
+func (s *InterchainAccountsGroupsTestSuite) QueryGroupPolicyAddress(ctx context.Context, chain ibc.Chain) string {
 	queryClient := s.GetChainGRCPClients(chain).GroupsQueryClient
 	res, err := queryClient.GroupPoliciesByGroup(ctx, &grouptypes.QueryGroupPoliciesByGroupRequest{
 		GroupId: InitialGroupID, // always use the initial group id
@@ -81,7 +81,7 @@ func (s *InterchainAccountsTestSuite) QueryGroupPolicyAddress(ctx context.Contex
 	return res.GroupPolicies[0].Address
 }
 
-func (s *InterchainAccountsTestSuite) TestInterchainAccountsGroupsIntegration() {
+func (s *InterchainAccountsGroupsTestSuite) TestInterchainAccountsGroupsIntegration() {
 	t := s.T()
 	t.Parallel()
 	ctx := context.TODO()

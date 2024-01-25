@@ -35,13 +35,14 @@ type GovInterchainAccountsTestSuite struct {
 	testsuite.E2ETestSuite
 }
 
-func (s *GovInterchainAccountsTestSuite) SetupTest() {
+func (s *GovInterchainAccountsTestSuite) SetupSuite() {
 	chainA, chainB := s.GetChains()
 	s.SetChainsIntoSuite(chainA, chainB)
 }
 
 func (s *GovInterchainAccountsTestSuite) TestInterchainAccountsGovIntegration() {
 	t := s.T()
+	t.Parallel()
 	ctx := context.TODO()
 
 	chainA, chainB := s.GetChains()
