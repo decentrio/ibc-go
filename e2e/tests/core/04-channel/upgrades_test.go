@@ -30,10 +30,9 @@ type ChannelTestSuite struct {
 }
 
 func (s *ChannelTestSuite) SetupSuite() {
-	ctx := context.TODO()
 	chainA, chainB := s.GetChains()
 	s.SetChainsIntoSuite(chainA, chainB)
-	_, _ = s.SetupRelayer(ctx, nil, chainA, chainB)
+
 }
 
 // TestChannelUpgrade_WithFeeMiddleware_Succeeds tests upgrading a transfer channel to wire up fee middleware
