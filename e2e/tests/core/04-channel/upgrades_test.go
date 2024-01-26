@@ -245,7 +245,6 @@ func (s *ChannelTestSuite) TestChannelUpgrade_WithFeeMiddleware_Succeeds() {
 // TestChannelUpgrade_WithFeeMiddleware_FailsWithTimeoutOnAck tests upgrading a transfer channel to wire up fee middleware but fails on ACK because of timeout
 func (s *ChannelTestSuite) TestChannelUpgrade_WithFeeMiddleware_FailsWithTimeoutOnAck() {
 	t := s.T()
-	t.Parallel()
 	ctx := context.TODO()
 
 	chainA, chainB := s.GetChains()
