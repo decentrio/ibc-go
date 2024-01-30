@@ -4,7 +4,6 @@ package transfer
 
 import (
 	"context"
-	"fmt"
 	"testing"
 	"time"
 
@@ -164,7 +163,6 @@ func (s *TransferTestSuite) TestMsgTransfer_Succeeds_Nonincentivized() {
 // that the tokens on the sending chain are unescrowed.
 func (s *TransferTestSuite) TestMsgTransfer_Fails_InvalidAddress() {
 	t := s.T()
-	t.Parallel()
 	ctx := context.TODO()
 
 	chainA, chainB := s.GetChains()
@@ -176,12 +174,8 @@ func (s *TransferTestSuite) TestMsgTransfer_Fails_InvalidAddress() {
 	chainAAddress := chainAWallet.FormattedAddress()
 
 	t.Run("native IBC token transfer from chainA to invalid address", func(t *testing.T) {
-		actualBalance, _ := s.GetChainANativeBalance(ctx, chainAWallet)
-		fmt.Println("walllll", actualBalance)
 		transferTxResp := s.Transfer(ctx, chainA, chainAWallet, channelA.PortID, channelA.ChannelID, testvalues.DefaultTransferAmount(chainADenom), chainAAddress, testvalues.InvalidAddress, s.GetTimeoutHeight(ctx, chainB), 0, "")
 		s.AssertTxSuccess(transferTxResp)
-		actualBalance, _ = s.GetChainANativeBalance(ctx, chainAWallet)
-		fmt.Println("walllll", actualBalance)
 	})
 
 	t.Run("tokens are escrowed", func(t *testing.T) {
