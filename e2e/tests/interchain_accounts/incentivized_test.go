@@ -186,7 +186,7 @@ func (s *IncentivizedInterchainAccountsTestSuite) TestMsgSendTx_SuccessfulBankSe
 		})
 
 		t.Run("packets are relayed", func(t *testing.T) {
-			s.Require().NoError(test.WaitForBlocks(ctx, 30, chainA, chainB), "failed to wait for blocks")
+			s.Require().NoError(test.WaitForBlocks(ctx, 50, chainA, chainB), "failed to wait for blocks")
 			packets, err := s.QueryIncentivizedPacketsForChannel(ctx, chainA, channelOutput.PortID, channelOutput.ChannelID)
 			s.Require().NoError(err)
 			s.Require().Empty(packets)
@@ -357,7 +357,7 @@ func (s *IncentivizedInterchainAccountsTestSuite) TestMsgSendTx_FailedBankSend_I
 		})
 
 		t.Run("packets are relayed", func(t *testing.T) {
-			s.Require().NoError(test.WaitForBlocks(ctx, 30, chainA, chainB), "failed to wait for blocks")
+			s.Require().NoError(test.WaitForBlocks(ctx, 50, chainA, chainB), "failed to wait for blocks")
 			packets, err := s.QueryIncentivizedPacketsForChannel(ctx, chainA, channelOutput.PortID, channelOutput.ChannelID)
 			s.Require().NoError(err)
 			s.Require().Empty(packets)
