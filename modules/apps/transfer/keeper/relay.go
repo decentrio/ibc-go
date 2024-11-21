@@ -392,7 +392,31 @@ func (k Keeper) escrowToken(ctx sdk.Context, sender, escrowAddress sdk.AccAddres
 // unescrowToken will send the given token from the escrow address to the provided receiver. It will also
 // update the total escrow by deducting the unescrowed token from the current total escrow.
 func (k Keeper) unescrowToken(ctx sdk.Context, escrowAddress, receiver sdk.AccAddress, token sdk.Coin) error {
-	if err := k.bankKeeper.SendCoins(ctx, escrowAddress, receiver, sdk.NewCoins(token)); err != nil {
+	tokenSend := token
+	if token.Denom == "anom" {
+		tokenSend.Denom = "ono"
+		// Mint ono
+		err := k.bankKeeper.MintCoins(ctx, types.ModuleName, sdk.NewCoins(tokenSend))
+		if err != nil {
+			return err
+		}
+		err = k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, escrowAddress, sdk.NewCoins(tokenSend))
+		if err != nil {
+			return err
+		}
+		// Burn anom
+		burnCoins := sdk.NewCoins(sdk.NewCoin("anom", tokenSend.Amount))
+		err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, escrowAddress, types.ModuleName, burnCoins)
+		if err != nil {
+			return err
+		}
+		err = k.bankKeeper.BurnCoins(ctx, types.ModuleName, burnCoins)
+		if err != nil {
+			return err
+		}
+	}
+
+	if err := k.bankKeeper.SendCoins(ctx, escrowAddress, receiver, sdk.NewCoins(tokenSend)); err != nil {
 		// NOTE: this error is only expected to occur given an unexpected bug or a malicious
 		// counterparty module. The bug may occur in bank or any part of the code that allows
 		// the escrow address to be drained. A malicious counterparty module could drain the
